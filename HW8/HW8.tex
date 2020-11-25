@@ -1,0 +1,305 @@
+ \documentclass[addpoints, 12pt]{exam}
+    \usepackage{etex}
+    \reserveinserts{28}
+    % \usepackage{xpatch}
+
+    % Need both to patch both instances (choice, correctchoice) in the oneparchoices environment.
+    % Unless there is a global replacement that works within an environment. I don't know.
+    % Replaces \hskip 1em with \hfill
+    % \xpatchcmd{\oneparchoices}{\penalty -50\hskip 1em plus 1em\relax}{\hfill}{}{}
+    % \xpatchcmd{\oneparchoices}{\penalty -50\hskip 1em plus 1em\relax}{\hfill}{}{}
+
+    \usepackage{mathtools}
+    \usepackage{wrapfig}
+    \usepackage{tabularx}
+    \usepackage {multirow}
+    \usepackage {tikz}
+    \usepackage{circuitikz}
+    \usepackage{enumerate}
+
+    \usepackage{setspace}
+
+    \usepackage[margin=1in]{geometry}
+    \usepackage{amsmath,amsthm,amssymb,amsfonts}
+
+    \usepackage[ruled,boxed,algo2e]{algorithm2e}
+    \usepackage{algorithm}
+    \usepackage{pifont}
+    \usepackage{graphicx}
+    \usepackage{listings}
+    \usepackage{color}
+
+    \usepackage{amsmath,amscd}
+    \usepackage{amssymb,array}
+    \usepackage{amsfonts,latexsym}
+    \usepackage{graphicx,subfig,wrapfig}
+    \usepackage{times}
+    \usepackage{psfrag,epsfig}
+    \usepackage{verbatim}
+    \usepackage{tabularx}
+
+    \usepackage{listings}
+
+    \usepackage{ulem}
+    \usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks=false,bookmarks=false]{hyperref}
+
+    \usepackage{multicol}
+
+    \usepackage{lastpage}
+    \usetikzlibrary{arrows}
+    \usetikzlibrary{shapes}
+    \newcommand{\multicircle}[1]{%
+        \tikz[baseline=(char.base)]\node[anchor=south west, draw,rectangle, rounded corners, inner sep=2pt, minimum size=7mm,
+            text height=2mm](char){\color{blue}{#1}} ;}
+
+    \newcommand*\singlecircle[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt](char){\color{blue}{#1}};}
+        }
+
+    \newcommand{\N}{\mathbb{N}}
+    \newcommand{\Z}{\mathbb{Z}}
+
+    \DeclareMathOperator*{\rank}{rank}
+    \DeclareMathOperator*{\trace}{trace}
+    \DeclareMathOperator*{\acos}{acos}
+    \DeclareMathOperator*{\argmax}{argmax}
+
+    \renewcommand{\mathbf}{\boldsymbol}
+    \newcommand{\mb}{\mathbf}
+    \newcommand{\matlab}[1]{\texttt{#1}}
+    \newcommand{\setname}[1]{\textsl{#1}}
+    \newcommand{\Ce}{\mathbb{C}}
+    \newcommand{\norm}[2]{\left\| #1 \right\|_{#2}}
+
+    \newcommand{\exercise}[2]{\item[] \textbf{Exercise #1 #2}}
+
+    \lstset{frame=none,
+      language=c,
+      aboveskip=3mm,
+      belowskip=3mm,
+      showstringspaces=false,
+      columns=flexible,
+      basicstyle={\small\ttfamily},
+      numbers=left,
+      numberstyle=\tiny\color{gray},
+      keywordstyle=\color{blue},
+      commentstyle=\color{dkgreen},
+      stringstyle=\color{mauve},
+      breaklines=true,
+      breakatwhitespace=true,
+      tabsize=8
+    }
+
+    \definecolor{dkgreen}{rgb}{0,0.6,0}
+    \definecolor{gray}{rgb}{0.5,0.5,0.5}
+    \definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+    \setlength\answerlinelength{.95\linewidth}
+
+
+    \begin{document}
+    \begin{questions}
+    
+    \question \textbf{Short answer questions}
+    \begin{parts}
+    \part[3] What are three specific benefits of using virtual memory?
+    {
+        \color{blue}
+        \begin{enumerate}
+            \item Adding disks to hierarchy.
+            \item Simplifying memory for apps.
+            \item Protection between processes.
+        \end{enumerate}
+    }
+
+    \part[2] Do you think the virtual and physical page number must be the same size? what about the page size?
+    {
+        \color{blue}
+        \begin{itemize}
+            \item The virtual and physical page number don't have to be the same size.
+            \item The page size must be same.
+        \end{itemize}
+    }
+
+    \part[2] Do different processes have (typically) access to each other's memory (Yes/ No). What is the name of the technique that is responsible for this?
+    {
+        \color{blue}
+        \begin{itemize}
+            \item No.
+            \item Virtual memory, address translation and protection.
+        \end{itemize}
+    }
+
+    \part[3] What does TLB stand for and what does it do?
+    {
+        \color{blue}
+        \begin{itemize}
+            \item Translation lookaside buffers.
+            \item Since translation is expensive, the TLB caches some translations.
+        \end{itemize}
+    }
+
+    \part[3] What should happen to the TLB when a new value is loaded into the page table address register?(only need to consider the valid bits of TLB)
+    {
+        \color{blue}
+        \begin{itemize}
+            \item The valid bit of all entries in TLB should be set to 0, since a new page table is used.
+        \end{itemize}
+    }
+    
+    \end{parts}
+
+\newpage
+\question \textbf{Memory Access} 
+
+    Consider a 32-bit physical memory space and a 32 KiB 4-way associative cache with LRU replacement. You are told that the hit rate of loop two is 9/16.
+
+    \begin{lstlisting}[language=C]
+    int ARRAY_SIZE = 32 * 1024;
+    int arr[ARRAY_SIZE]; // *arr is aligned to a cache block
+
+    /* loop one */
+    for (int i = 0; i < ARRAY_SIZE; i += 4) arr[i] = i;
+    /* loop two */
+    for (int i = ARRAY_SIZE - 4; i >= 0; i -= 4) arr[i+1] = arr[i]-1;
+    \end{lstlisting}
+
+    \begin{parts}
+
+    \part[4] Fill the number of bits in the tag, index and offset fields in the figure below.\\
+    {
+        \centering
+        \begin{tabular}{|p{2cm}<{\centering}|p{2cm}<{\centering}|p{2cm}<{\centering}|p{1.9cm}<{\centering}|p{1.1cm}<{\centering}|p{1.5cm}<{\centering}|p{1.5cm}<{\centering}|p{1.1cm}<{\centering}|p{1.1cm}<{\centering}|p{1.1cm}<{\centering}|p{1.1cm}<{\centering}|}
+            \hline
+            Tag & Index & Offset  \\ \hline
+            \textcolor{blue}{19} & \textcolor{blue}{9} & \textcolor{blue}{4}  \\ \hline
+            \textcolor{blue}{19} & \textcolor{blue}{8} & \textcolor{blue}{5}  \\ \hline
+        \end{tabular}
+    }
+
+    %\question 
+    \part \textbf{It's Not My Fault}
+
+    Consider the following OpenMP snippet:
+
+    \begin{lstlisting}[language=C]
+    int values[size];
+    #pragma omp parallel
+    {
+        int i = omp_get_thread_num();
+        int n = omp_get_num_threads();
+        for(int j = i * (size / n); j < (i + 1) * (size / n); j++){
+                values[j] = j;
+        }
+    }
+    \end{lstlisting} 
+
+    All cores share the same physical memory and we are running 2 threads. This is the sole process running. Each page is 1 KiB, and you have 2 pages of physical memory. The code snippet above starts at virtual address 0x400, and the values array starts at 0x800. The size, n, i, and j variables are all stored in registers. The functions omp\_get\_thread\_num and omp\_get\_num\_threads are stored in virtual addresses 0x440 to 0x480. The replacement policy for the page table is Least Recently Used.
+
+
+    At the start of the pragma omp parallel call the page table looks as follows:\\
+    {	\centering
+        \begin{tabular}{|p{1.5cm}<{\centering}|p{1.35cm}<{\centering}|p{1.15cm}<{\centering}|p{1.9cm}<{\centering}|p{1.1cm}<{\centering}|p{1.5cm}<{\centering}|p{1.5cm}<{\centering}|p{1.1cm}<{\centering}|p{1.1cm}<{\centering}|p{1.1cm}<{\centering}|p{1.1cm}<{\centering}|}
+            \hline
+            Virtual Page Number & Valid & Dirty & Physical Page Number \\ \hline
+            0 & 0 & 0 & 0 \\ \hline
+            1 & 1 & 0 & 0 \\ \hline
+            2 & 1 & 1 & 1 \\ \hline
+            3 & 0 & 0 & 1 \\ \hline
+
+        \end{tabular}
+    }
+
+    \part[3] How many page faults will occur if size=0x080?
+    {
+            \color{blue}
+            \begin{itemize}
+                \item 0
+            \end{itemize}
+    }
+
+    \part[5] What is the minimum number of page faults that will occur if size=0x200? And what is the maximum? 
+    {
+            \color{blue}
+            \begin{itemize}
+                \item The minimum number is 1.
+                \item The maximum number is 512.
+            \end{itemize}
+    }
+
+    \part[3] How could you reduce the maximum page faults for part (b) (updated to (d))? 
+    Choose the valid options amongst the following ( - 1 pt for every incorrect answer):\\
+    1. increase virtual address space \\
+    2. decrease number of threads \\
+    3. increase number of threads\\
+    4. use SIMD instructions \\
+    5. change page table replacement policy to Random\\
+    6. increase physical address space\\
+    7. add a 4-entry TLB
+    {
+            \color{blue}
+            \begin{itemize}
+                \item 2 4 6
+            \end{itemize}
+    }
+
+\end{parts}
+
+\newpage
+\question 
+
+\textbf{Meltdown}
+    \begin{parts}
+    \part[4] Shortly explain (on a high level - we are mainly looking for the correct keywords) how meltdown works.
+    {
+        \color{blue}
+        \begin{itemize}
+            \item The out of order execution in pipelining allows some instructions to be executed in advance. Attacker can construct a probe array and use Flush+Reload to see which cache line of the probe arrays hits, then the attacker can figure out the value in memory, even if the attacker has no privilege in accessing that memory.
+        \end{itemize}
+    }
+        
+    \end{parts}
+    
+    
+ \textbf{DMA, Dependency and RAID}
+ \begin{parts}
+    \part[2] Please briefly explain what \textbf{DMA} is in 2 sentences.
+    {
+        \color{blue}
+        \begin{itemize}
+            \item DMA stands for direct memory access and is a mechanism that allows I/O devices to directly read/write main memory.
+        \end{itemize}
+    }
+
+    \part[2] During the DMA procedure, which of them may raise an interrupt when handling the \textbf{incoming data}? \textbf{circle} them out.
+    \begin{choices}
+    \choice CPU
+    \choice \multicircle{I/O Device}
+    \choice \multicircle{DMA engine}
+    \choice ALU
+    \end{choices}
+
+    \part[2] Which of the following will decrease the availability? \textbf{Circle} them.
+    \begin{choices}
+    \choice \multicircle{decrease MTTF}
+    \choice increase MTTF
+    \choice decrease MTBF
+    \choice increase MTBF
+    \choice decrease MTTR
+    \choice \multicircle{increase MTTR}
+    \end{choices}
+
+     % may choose some questions among these！
+    \part[4] True or False Questions, please \textbf{circle} the correct answer. \\
+    { \setstretch{1.3}
+    T / \singlecircle{F}: RAID 1 will result in slower read but it has very high availability\\
+    \singlecircle{T} / F: RAID 1 is the most expensive architecture among RAID 1,3,4,5 \\
+    T / \singlecircle{F}: RAID 3 uses hamming ECC to check and correct the data \\
+    \singlecircle{T} / F: RAID 4 is still slow on small writes
+    } \\ \\
+    \end{parts}
+    
+\end{questions}
+
+\end{document}

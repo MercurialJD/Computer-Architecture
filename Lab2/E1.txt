@@ -1,0 +1,14 @@
+1. 
+    .data: Store following items (global variables) in the data section
+    .word: Store following 32-bit quantities in successive memory words
+    .text: Store following items (machine code) in the text section
+
+2. 
+    Output: 34
+    Meaning: The 9th (0-indexed) fib number is 34
+
+3. 
+    Address: 0x10000010
+    
+4. 
+    After lw t3, 0(t3) is excuted, change t3 to 0x0000000D

@@ -1,0 +1,6 @@
+Badness: bad_vector_new: the vector v is a local variable, will be destroyed after bad_vector_new returns, causing memory leak and invalid access
+         also_bad_vector_new:  return the value of the vector rather than a pointer to vector is wastefull
+
+--tool=<name>             use the Valgrind tool named <name> [memcheck]
+--leak-check=no|summary|full     search for memory leaks at exit?  [summary]
+--track-origins=no|yes           show origins of undefined values? [no]
