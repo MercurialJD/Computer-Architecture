@@ -69,16 +69,14 @@ Descriptions of homework, labs, and projects are provided within corresponding f
     3. Implement "firstlpos" with RISC-V
 
 - Lab 5
-
-    0. Warm Up with Logisim
-
-    1. Sub-Circuits
-    2. Storing State
-    3. FSMs to Digital Logic
+    1. Warm Up with Logisim
+    2. Sub-Circuits
+    3. Storing State
+    4. FSMs to Digital Logic
 
 - Lab 6 (Extended from Lab5)
-    4. Practice with Splitters
-    5. Rotate Right
+    1. Practice with Splitters
+    2. Rotate Right
 
 - Lab 7
     1. Inefficiencies Everywhere
@@ -112,10 +110,10 @@ Descriptions of homework, labs, and projects are provided within corresponding f
     4. What's The Most Popular Word?
 
 - Lab 13
-    0. Sanity Check
-    1. Working with CAMERA
-    2. Misses
-    3. Fixing Our Faults
+    1. Sanity Check
+    2. Working with CAMERA
+    3. Misses
+    4. Fixing Our Faults
 
 ### Projects
 
