@@ -1,13 +1,13 @@
 # Computer-Architecture
 This repo contains homework, labs and projects done (All AC) during the course Computer Architecture (CS110) Spring 2020 in Shanghaitech University, in cooperation with [Silverhza](https://github.com/Silverhza).
 
-<img src="README_img/dragon.png" style="zoom: 67%;" />
+<div align=center><img src="README_img/dragon.png" style="zoom: 67%;" /></div>
 
 Descriptions of homework, labs, and projects are provided within corresponding folders, in case you want to take a look at the requirements.
 
 **Note: You may get inspirations from my work but you should NEVER copy any part of my code or assignments.**
 
-<img src="README_img/RISC-V-Logo.png" style="zoom:150%;" />
+<div align=center><img src="README_img/RISC-V-Logo.png" style="zoom:150%;" /></div>
 
 ## Summaries
 
